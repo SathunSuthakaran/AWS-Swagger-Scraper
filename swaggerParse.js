@@ -1,21 +1,20 @@
 require('dotenv').config();
 const { APIGatewayClient, GetRestApisCommand, GetExportCommand, GetStagesCommand } = require('@aws-sdk/client-api-gateway');
 
-// Initialize API Gateway client
 const client = new APIGatewayClient({ region: process.env.AWS_REGION,
     credentials: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        sessionToken: process.env.AWS_SESSION_TOKEN
     }
  });
  const fs = require('fs');
 
- // Function to retrieve the Swagger (OpenAPI) for a given API ID and stage
  const getSwaggerForApi = async (apiId) => {
    try {
      // Fetch the stages for the API
      const stageCommand = new GetStagesCommand({
-       restApiId: apiId,  // The ID of your API
+       restApiId: apiId, 
      });
      const stagesData = await client.send(stageCommand);
  
@@ -25,24 +24,23 @@ const client = new APIGatewayClient({ region: process.env.AWS_REGION,
        return;
      }
  
-     // Assuming the first stage is the one we want (you can adjust if needed)
      const stageName = stagesData.item[0].stageName;
  
-     // Retrieve the Swagger export for the given API and stage
+
      const exportCommand = new GetExportCommand({
-       restApiId: apiId,   // The ID of your API
-       stageName: stageName,   // Dynamically use the first stage found
-       exportType: 'swagger'  // Get Swagger specification
+       restApiId: apiId,  
+       stageName: stageName,
+       exportType: 'swagger'
      });
  
      const { body } = await client.send(exportCommand);
  
-     // Log the raw response body (binary data)
      console.log("Raw response body (binary data):", body);
  
+     
      // Write the binary data to a file
-     const swaggerFileName = `swagger_${apiId}_${stageName}.json`;  // Save as .json file
-     fs.writeFileSync(swaggerFileName, body);  // Write the binary data to a file
+     const swaggerFileName = `swagger_${apiId}_${stageName}.json`;
+     fs.writeFileSync(swaggerFileName, body); 
  
      console.log(`Swagger data has been saved to ${swaggerFileName}`);
  
@@ -51,10 +49,10 @@ const client = new APIGatewayClient({ region: process.env.AWS_REGION,
    }
  };
  
- // Function to list all APIs and fetch their Swagger definitions
+ 
  const listApisAndGetSwagger = async () => {
    try {
-     // List all REST APIs
+    
      const command = new GetRestApisCommand({});
      const data = await client.send(command);
  
@@ -63,7 +61,7 @@ const client = new APIGatewayClient({ region: process.env.AWS_REGION,
        return;
      }
  
-     // For each API, fetch the Swagger definition
+     // For each API, fetch the Swagger 
      for (const api of data.items) {
        console.log(`Fetching Swagger for API: ${api.name} (ID: ${api.id})`);
        await getSwaggerForApi(api.id);
@@ -73,6 +71,6 @@ const client = new APIGatewayClient({ region: process.env.AWS_REGION,
    }
  };
  
- // Call the function to list APIs and get Swagger
+ //need to add loop for stages
  listApisAndGetSwagger();
  
