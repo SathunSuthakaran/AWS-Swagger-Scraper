@@ -35,10 +35,10 @@ const client = new APIGatewayClient({ region: process.env.AWS_REGION,
  
      const { body } = await client.send(exportCommand);
  
-     console.log("Raw response body (binary data):", body);
+     //console.log("Raw response body (binary data):", body);
  
-     
-     // Write the binary data to a file
+
+     // Write the json data to a file
      const swaggerFileName = `swagger_${apiId}_${stageName}.json`;
      fs.writeFileSync(swaggerFileName, body); 
  
