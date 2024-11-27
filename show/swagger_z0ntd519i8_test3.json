@@ -1,0 +1,101 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2024-11-21T05:05:31Z",
+    "title" : "Test2SwaggerEndpoints"
+  },
+  "host" : "z0ntd519i8.execute-api.us-east-2.amazonaws.com",
+  "basePath" : "/test3",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          },
+          "500" : {
+            "description" : "500 response"
+          },
+          "404" : {
+            "description" : "404 response"
+          }
+        }
+      },
+      "post" : {
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "TestUserInput",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TestUserInput"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    },
+    "/hello" : {
+      "get" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      },
+      "post" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    },
+    "TestUserInput" : {
+      "type" : "object",
+      "required" : [ "email", "username" ],
+      "properties" : {
+        "username" : {
+          "type" : "string",
+          "minLength" : 3,
+          "maxLength" : 20
+        },
+        "email" : {
+          "type" : "string",
+          "format" : "email"
+        },
+        "age" : {
+          "type" : "integer",
+          "minimum" : 18.0
+        }
+      },
+      "title" : "CreateUserRequest"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the first API that is being used to test swagger extraction",
+    "version" : "2024-11-14T19:55:45Z",
+    "title" : "Test1-API"
+  },
+  "host" : "5fn4s4sb74.execute-api.us-east-2.amazonaws.com",
+  "basePath" : "/test1",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/" : {
+      "x-amazon-apigateway-any-method" : {
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    }
+  }
+}

@@ -2,14 +2,14 @@ require('dotenv').config();
 const { APIGatewayClient, GetRestApisCommand, GetExportCommand, GetStagesCommand } = require('@aws-sdk/client-api-gateway');
 
 const client = new APIGatewayClient({ region: process.env.AWS_REGION,
-    credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        sessionToken: process.env.AWS_SESSION_TOKEN
-    }
+    // credentials: {
+    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    //     sessionToken: process.env.AWS_SESSION_TOKEN
+    // }
  });
  const fs = require('fs');
-
+ 
  const getSwaggerForApi = async (apiId) => {
    try {
      // Fetch the stages for the API
